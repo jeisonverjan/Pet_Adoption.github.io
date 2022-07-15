@@ -15,7 +15,7 @@ def create_app():
     from .views import views
 
     app.register_blueprint(views, url_prefix='/')
-    from .models import Country, State
+    from .models import Country, State, City, User_profile, Pet_type, Breed, Pet, Post, User
     create_database(app)
 
     return app

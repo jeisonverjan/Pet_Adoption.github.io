@@ -1,4 +1,5 @@
-from flask import Blueprint
+import code
+from flask import Blueprint, render_template
 from . import db
 from .models import Country, State
 
@@ -7,9 +8,9 @@ views = Blueprint('views', __name__)
 @views.route('/')
 def home():
     #colombia = Country(code= 53, name='Colombia')
-    #colombia = Country.query.filter(Country.code==53).first()
-    colombia = State(code= 20, name='Kansas', country_code = 1)
-    db.session.add(colombia)
-    db.session.commit()
-    print('El usuario se ha agregado a la base de datos')
-    return "<h1> Test </h1>"
+    #colombia = State(code= 20, name='Kansas', country_code = 1)
+    #db.session.add(colombia)
+    #db.session.commit()
+    #country = Country.query.get(3)
+    
+    return render_template("home.html")
