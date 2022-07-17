@@ -13,9 +13,12 @@ def create_app():
     db.init_app(app)
 
     from .views import views
-
-    app.register_blueprint(views, url_prefix='/')
+    from .auth import auth
     from .models import Country, State, City, User_profile, Pet_type, Breed, Pet, Post, User
+    
+    app.register_blueprint(views, url_prefix='/')
+    app.register_blueprint(auth, url_prefix='/')
+    
     create_database(app)
 
     return app

@@ -1,0 +1,64 @@
+{% extends "base.html" %}
+{% block title %} Sign Up {% endblock %}
+{% block Content %}
+<section>
+    <h2>Sing-Up</h2>
+    <form method="post" action="#">
+        <div class="row gtr-uniform">
+            <div class="col-6 col-12-xsmall">
+                <input type="text" name="name" id="name" value="" placeholder="Name" />
+            </div>
+            <div class="col-6 col-12-xsmall">
+                <input type="text" name="last_name" id="last_name" value="" placeholder="Last Name" />
+            </div>
+            <div class="col-6 col-12-xsmall">
+                <input type="email" name="email" id="email" value="" placeholder="Email" />
+            </div>
+            <div class="col-6 col-12-xsmall">
+                <input type="text" name="phone" id="phone" value="" placeholder="Phone Number" />
+            </div>
+            <div class="col-6 col-12-xsmall">
+                <input type="password" name="password1" id="password1" value="" placeholder="Password" />
+            </div>
+            <div class="col-6 col-12-xsmall">
+                <input type="password" name="password2" id="password2" value="" placeholder="Re-enter your Password" />
+            </div>
+            <div class="field half">
+                <select name="country" id="country">
+                    {%for country in countries%}
+                    <option value="{{country.code}}">{{country.name}}</option>
+                    {%endfor%}
+                    
+                </select>
+            </div>
+            <div class="field half">
+                <select name="demo-category" id="demo-category">
+                    <option value="">- Category -</option>
+                    <option value="1">Manufacturing</option>
+                    <option value="1">Shipping</option>
+                    <option value="1">Administration</option>
+                    <option value="1">Human Resources</option>
+                </select>
+            </div>
+            <div class="field half">
+                <select name="demo-category" id="demo-category">
+                    <option value="">- Category -</option>
+                    <option value="1">Manufacturing</option>
+                    <option value="1">Shipping</option>
+                    <option value="1">Administration</option>
+                    <option value="1">Human Resources</option>
+                </select>
+            </div>
+            <div class="col-6 col-12-xsmall">
+                <input type="text" name="address" id="address" value="" placeholder="Address" />
+            </div>
+            <div class="col-12">
+                <ul class="actions">
+                    <li><input type="submit" value="Send Message" class="primary" /></li>
+                    <li><input type="reset" value="Reset" /></li>
+                </ul>
+            </div>
+        </div>
+    </form>
+</section>
+{% endblock%}

@@ -1,7 +1,6 @@
-import code
 from flask import Blueprint, render_template
 from . import db
-from .models import Country, State
+from .models import *
 
 views = Blueprint('views', __name__)
 

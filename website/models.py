@@ -62,6 +62,8 @@ class Post(db.Model):
     date = db.Column(db.DateTime(timezone=True), default=func.now())
     description = db.Column(db.String(100), nullable = False)
     status = db.Column(db.Boolean, default = True)
+    user_mail = db.Column(db.String, db.ForeignKey('user.mail'))
+    pet_code = db.Column(db.Integer, db.ForeignKey('pet.id'))
 
 class User(db.Model, UserMixin):
     id = db.Column(db.Integer, primary_key = True)
