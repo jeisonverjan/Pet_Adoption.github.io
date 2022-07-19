@@ -10,6 +10,6 @@ def home():
     #colombia = State(code= 20, name='Kansas', country_code = 1)
     #db.session.add(colombia)
     #db.session.commit()
-    #country = Country.query.get(3)
+    country = City.query.all()
     
-    return render_template("home.html")
+    return render_template("home.html", country=country)

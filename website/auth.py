@@ -12,7 +12,4 @@ def login():
 def logout():
     return "<h2> Logout Page <h2>"
 
-@auth.route('/sign-up')
-def sign_up():
-    countries = Country.query.all()
-    return render_template('sign_up.html', countries=countries)
+
