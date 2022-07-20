@@ -1,6 +1,7 @@
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from os import path
+from flask_login import LoginManager
 
 db = SQLAlchemy()
 DB_NAME = "Pet_Adoption.db"
@@ -15,13 +16,24 @@ def create_app():
     from .views import views
     from .auth import auth
     from .sign_up import sign_up
+    from .index import indexs
     from .models import Country, State, City, User_profile, Pet_type, Breed, Pet, Post, User
     
     app.register_blueprint(views, url_prefix='/')
     app.register_blueprint(auth, url_prefix='/')
     app.register_blueprint(sign_up, url_prefix='/')
+    app.register_blueprint(indexs, url_prefix='/')
     
     create_database(app)
+
+    login_manager = LoginManager()
+    login_manager.login_view = 'index.index'
+    login_manager.init_app(app)
+
+    @login_manager.user_loader
+    def load_user(id):
+        return User.query.get(int(id))
+
 
     return app
 

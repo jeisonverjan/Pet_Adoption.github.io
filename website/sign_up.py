@@ -1,8 +1,10 @@
-from flask import Blueprint, render_template, request, jsonify
+from flask import Blueprint, render_template, request, jsonify, flash, redirect, url_for
 from . import db
 from .models import *
 from wtforms import SelectField, StringField, validators, EmailField, PasswordField, SubmitField
 from flask_wtf import FlaskForm
+from werkzeug.security import generate_password_hash
+from flask_login import login_user, current_user
 
 sign_up = Blueprint('signup', __name__)
 
@@ -16,7 +18,7 @@ class Sign_up_form(FlaskForm):
     password2 = PasswordField("Password1", validators=[validators.InputRequired(), validators.Length(min=3,max=15)], render_kw={"placeholder": "Re-enter Password"})
     country = SelectField('country', choices=[])
     state = SelectField('state', choices=[])
-    city = SelectField('city', choices=[], validators=[validators.InputRequired])
+    city = SelectField('city', choices=[], validators=[validators.InputRequired()])
     address = StringField("Address", validators=[validators.InputRequired(), validators.Length(min=3,max=50)], render_kw={"placeholder": "Address"})
     send = SubmitField("Send Record")
 
@@ -26,11 +28,20 @@ class Sign_up_form(FlaskForm):
 def signup(): 
     form = Sign_up_form()
     form.country.choices = [(country.id, country.name) for country in Country.query.all()]
+    current_email = User.query.filter_by(mail=form.email.data).first()
     if request.method == 'POST':
-        user = User(name= form.name.data, last_name=form.last_name.data, mail= form.email.data, address = form.address.data, phone=form.phone.data, password=form.password1.data, user_profile_id = 1, city_code= form.city.data)
-        db.session.add(user)
-        db.session.commit()
-    return render_template("sign_up.html", form=form)
+        if current_email != None:
+            flash('Email alredy exists', category="error")
+        elif form.password1.data != form.password2.data:
+            flash('Password don\'t match', category='error')
+        else:
+            user = User(name= form.name.data, last_name=form.last_name.data, mail= form.email.data, address = form.address.data, phone=form.phone.data, password=generate_password_hash(form.password1.data, method='sha256'), user_profile_id = 1, city_code= form.city.data)
+            db.session.add(user)
+            db.session.commit()
+            flash('The user has been created', category='success')
+            login_user(current_user, remember=True)
+            return redirect(url_for('views.home'))
+    return render_template("sign_up.html", form=form, user=current_user)
 
 
 @sign_up.route('/state/<get_state>')
