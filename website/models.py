@@ -45,7 +45,7 @@ class Pet(db.Model):
     id = db.Column(db.Integer, primary_key = True)
     code = db.Column(db.Integer, unique = True, nullable = False)
     name = db.Column(db.String(100), nullable = False)
-    birth = db.Column(db.Date)
+    age = db.Column(db.String(100))
     sex = db.Column(db.String(100), nullable = False)
     status = db.Column(db.Boolean, default = True)
     pet_type_id = db.Column(db.Integer, db.ForeignKey('pet_type.id'))

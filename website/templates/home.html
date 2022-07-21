@@ -1,7 +1,41 @@
 {% extends "base.html" %}
 {% block title %} Home {% endblock %}
 {% block Content %}
-{%for element in country%}
-<li>{{element.name}}</li>
-{%endfor%}
+<section>
+    <h2>Add new Post</h2>
+    <form method="post" action="#" enctype="multipart/form-data">
+        <div class="row gtr-uniform">
+            <div class="col-6 col-12-xsmall">
+                {{form.pet_type}}
+            </div>
+            <div class="col-6 col-12-xsmall">
+                {{form.breed}}
+            </div>
+            <div class="col-6 col-12-xsmall">
+                {{form.code}}
+            </div>
+            <div class="col-6 col-12-xsmall">
+                {{form.name}}
+            </div>
+            <div class="col-6 col-12-xsmall">
+                {{form.sex}}
+            </div>
+            <div class="col-6 col-12-xsmall">
+                {{form.age}}
+            </div>
+            <div class="col-6 col-12-xsmall">
+                {{form.pet_pic.label}}
+                {{form.pet_pic}}
+            </div>
+            <div class="col-6 col-12-xsmall">
+                {{form.description}}
+            </div>
+            <div class="col-12">
+                <ul class="actions">
+                    <li>{{form.send(class="primary")}}</li>
+                </ul>
+            </div>
+        </div>
+    </form>
+</section>
 {% endblock%}

@@ -27,19 +27,20 @@ class Sign_up_form(FlaskForm):
 @sign_up.route('/sign_up', methods=['GET', 'POST'])
 def signup(): 
     form = Sign_up_form()
+    user = User.query.filter_by(mail=form.email.data).first()
     form.country.choices = [(country.id, country.name) for country in Country.query.all()]
-    current_email = User.query.filter_by(mail=form.email.data).first()
+
     if request.method == 'POST':
-        if current_email != None:
+        if user != None:
             flash('Email alredy exists', category="error")
         elif form.password1.data != form.password2.data:
             flash('Password don\'t match', category='error')
         else:
-            user = User(name= form.name.data, last_name=form.last_name.data, mail= form.email.data, address = form.address.data, phone=form.phone.data, password=generate_password_hash(form.password1.data, method='sha256'), user_profile_id = 1, city_code= form.city.data)
-            db.session.add(user)
+            new_user = User(name= form.name.data, last_name=form.last_name.data, mail= form.email.data, address = form.address.data, phone=form.phone.data, password=generate_password_hash(form.password1.data, method='sha256'), user_profile_id = 1, city_code= form.city.data)
+            db.session.add(new_user)
             db.session.commit()
             flash('The user has been created', category='success')
-            login_user(current_user, remember=True)
+            login_user(new_user, remember=True)
             return redirect(url_for('views.home'))
     return render_template("sign_up.html", form=form, user=current_user)
 

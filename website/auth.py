@@ -17,11 +17,12 @@ class Login_form(FlaskForm):
 @auth.route('/login', methods=['GET', 'POST'])
 def login():
     form = Login_form()
-    current_user = User.query.filter_by(mail=form.email.data).first()
+    
     if request.method == 'POST':
-        if current_user:
-            if check_password_hash(current_user.password, form.password.data):
-                login_user(current_user, remember=True)
+        user = User.query.filter_by(mail=form.email.data).first()
+        if user:
+            if check_password_hash(user.password, form.password.data):
+                login_user(user, remember=True)
                 return redirect(url_for('views.home'))
             else:
                 flash('Password incorrect, try again', category='error')

@@ -6,12 +6,19 @@ from flask_login import LoginManager
 db = SQLAlchemy()
 DB_NAME = "Pet_Adoption.db"
 
+
 def create_app():
     app = Flask(__name__)
+    UPLOAD_FOLDER = 'website/static/images/pet_media/'
     app.config['SECRET_KEY'] = 'Pet_Adoption 0.1'
     app.config['SQLALCHEMY_DATABASE_URI'] = f'sqlite:///{DB_NAME}'
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+    app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
+    
+    
     db.init_app(app)
+    
+    
 
     from .views import views
     from .auth import auth
@@ -34,8 +41,8 @@ def create_app():
     def load_user(id):
         return User.query.get(int(id))
 
-
     return app
+
 
 def create_database(app):
     if not path.exists('website/' + DB_NAME):
