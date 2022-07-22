@@ -3,16 +3,15 @@
 {% block Content %}
 <section>
     <h2>Add new Post</h2>
+    <BR>    
     <form method="post" action="#" enctype="multipart/form-data">
+        {{ form.csrf_token}}
         <div class="row gtr-uniform">
             <div class="col-6 col-12-xsmall">
                 {{form.pet_type}}
             </div>
             <div class="col-6 col-12-xsmall">
                 {{form.breed}}
-            </div>
-            <div class="col-6 col-12-xsmall">
-                {{form.code}}
             </div>
             <div class="col-6 col-12-xsmall">
                 {{form.name}}

@@ -39,11 +39,10 @@ class Breed(db.Model):
 class Media(db.Model):
     id = db.Column(db.Integer, primary_key = True)
     path = db.Column(db.String(150), nullable = False)
-    pet_code = db.Column(db.Integer, db.ForeignKey('pet.code'))
+    pet_id = db.Column(db.Integer, db.ForeignKey('pet.id'))
 
 class Pet(db.Model):
     id = db.Column(db.Integer, primary_key = True)
-    code = db.Column(db.Integer, unique = True, nullable = False)
     name = db.Column(db.String(100), nullable = False)
     age = db.Column(db.String(100))
     sex = db.Column(db.String(100), nullable = False)
@@ -59,8 +58,8 @@ class Post(db.Model):
     date = db.Column(db.DateTime(timezone=True), default=func.now())
     description = db.Column(db.String(100), nullable = False)
     status = db.Column(db.Boolean, default = True)
-    user_mail = db.Column(db.String, db.ForeignKey('user.mail'))
-    pet_code = db.Column(db.Integer, db.ForeignKey('pet.id'))
+    user_id = db.Column(db.String, db.ForeignKey('user.id'))
+    pet_id = db.Column(db.Integer, db.ForeignKey('pet.id'))
 
 class User(db.Model, UserMixin):
     id = db.Column(db.Integer, primary_key = True)

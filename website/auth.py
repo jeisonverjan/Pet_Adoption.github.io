@@ -1,5 +1,4 @@
 from flask import Blueprint, flash, render_template, request, redirect, url_for
-from . import db
 from .models import *
 from flask_wtf import FlaskForm
 from wtforms import validators, EmailField, PasswordField, SubmitField
@@ -21,7 +20,7 @@ def login():
     if request.method == 'POST':
         user = User.query.filter_by(mail=form.email.data).first()
         if user:
-            if check_password_hash(user.password, form.password.data):
+            if check_password_hash(user.password, form.password.data) and user.status == True:
                 login_user(user, remember=True)
                 return redirect(url_for('views.home'))
             else:
