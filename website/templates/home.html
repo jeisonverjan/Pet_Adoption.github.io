@@ -2,7 +2,7 @@
 {% block title %} Home {% endblock %}
 {% block Content %}
 <section>
-    <h2>Add new Post</h2>
+    <h2>Add new Post:</h2>
     <BR>    
     <form method="post" action="#" enctype="multipart/form-data">
         {{ form.csrf_token}}
@@ -38,3 +38,24 @@
     </form>
 </section>
 {% endblock%}
+{% block separate %}
+<br>
+<h2>Yours Posts:</h2>
+{% endblock%}
+<!--
+{% block posts %}
+{% for post in posts%}
+<article class="style7">
+    <span class="image">
+        <img src="{{ url_for('static', filename='images/pet_media/' + post.path)}}" alt="" />
+    </span>
+    <a href="generic.html">
+        <h2>{{post.name}}</h2>
+        <div class="content">
+            <p>{{post.description}}</p>
+        </div>
+    </a>
+</article>
+{% endfor %}
+{% endblock%}
+-->

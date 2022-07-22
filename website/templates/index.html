@@ -3,16 +3,16 @@
 {% block posts %}
 <br>
 {% for post in posts%}
-<article class="style6">
-    <span class="image">
-        <img src="{{ url_for('static', filename='images/pic01.jpg' )}}" alt="" />
-    </span>
-    <a href="generic.html">
-        <h2>{{post.date}}</h2>
-        <div class="content">
-            <p>{{post.description}}</p>
-        </div>
-    </a>
-</article>
+    <article class="{{'style' + random_style}}">
+        <span class="image">
+            <img src="{{ url_for('static', filename='images/pet_media/' + post.path)}}" alt="" />
+        </span>
+        <a href="generic.html">
+            <h2>{{post.name}}</h2>
+            <div class="content">
+                <p>{{post.description}}</p>
+            </div>
+        </a>
+    </article>
 {% endfor %}
 {% endblock%}
