@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% block title %} Posts {% endblock %}
+{% block separate%}
+<h2>Your posts: </h2>
+<br>
+{% endblock%}
+{% block posts %}
+{% for post in posts%}
+<button type="button" class="Myclose" onClick="deletePost({{ post.id }})">
+    <span aria-hidden="true">&times;</span>
+</button>
+<article class="style7">
+    
+    <span class="image">      
+        <img src="{{ url_for('static', filename='images/pet_media/' + post.path)}}" alt="" />        
+    </span>
+    <a href="generic.html">
+        <h2>{{post.name}}</h2>
+        <div class="content">
+            <p>{{post.description}}</p>
+        </div>
+    </a>
+</article>
+{% endfor %}
+{% endblock%}

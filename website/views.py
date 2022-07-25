@@ -9,6 +9,7 @@ import os
 from werkzeug.utils import secure_filename
 import uuid as uuid
 from flask import current_app
+import json
 
 
 views = Blueprint('views', __name__)
@@ -35,8 +36,7 @@ def home():
     form = Post_form()
     form.pet_type.choices = [(pet_type.id, pet_type.name) for pet_type in Pet_type.query.all()]
     pet_pic_file = form.pet_pic.data
-    #posts = db.engine.execute("SELECT media.path, pet.name, post.description FROM media, pet, post WHERE media.pet_id = post.pet_id AND post.pet_id = pet.id AND post.status = True AND  post.user_id =" + str(current_user.id))
-
+    
     if request.method == 'POST':
         if  pet_pic_file and allowed_file( pet_pic_file.filename):
             pic_filename = secure_filename( pet_pic_file.filename)
@@ -58,11 +58,8 @@ def home():
             pet_pic_file.save(os.path.join(current_app.config['UPLOAD_FOLDER'],  pic_name))
             flash('The picture has been upload', category='success')       
         else:
-            flash('Enter a valid file (png, jpg, jpeg, gif)', category='error')
-
-    
+            flash('Enter a valid file (png, jpg, jpeg, gif)', category='error')   
         
-
     return render_template("home.html", user=current_user, form=form)
 
 @views.route('/breed/<get_breed>')
@@ -76,3 +73,26 @@ def breedbytype(get_breed):
         breedArray.append(breedObj)
 
     return jsonify({'breedbytype' : breedArray})
+
+@views.route('/home/posts', methods=['GET', 'POST'])
+@login_required
+def user_posts():
+    form = Post_form()
+    posts = db.engine.execute("SELECT post.id, media.path, pet.name, post.description FROM media, pet, post WHERE media.pet_id = post.pet_id AND post.pet_id = pet.id AND post.status = True AND  post.user_id =" + str(current_user.id))
+    
+    return render_template("user_posts.html", user=current_user, form=form, posts=posts)
+
+
+@views.route('/delete-post', methods=['POST'])
+def delete_post():
+    post = json.loads(request.data)
+    postId = post['postId']
+    post = Post.query.get(postId)
+    if post:        
+        if current_user.id == int(post.user_id):
+            db.session.delete(post)
+            db.session.commit()
+            flash(" Post Deleted ", category='Success')            
+   
+        
+    return jsonify({})    
