@@ -1,4 +1,4 @@
-from flask import Blueprint, flash, jsonify, render_template, request
+from flask import Blueprint, flash, jsonify, render_template, request, url_for
 from . import db
 from flask_login import login_required, current_user
 from .models import *
@@ -56,7 +56,7 @@ def home():
             db.session.commit()
             #saving the picture in the folder
             pet_pic_file.save(os.path.join(current_app.config['UPLOAD_FOLDER'],  pic_name))
-            flash('The picture has been upload', category='success')       
+            flash('The Post has been upload', category='success')       
         else:
             flash('Enter a valid file (png, jpg, jpeg, gif)', category='error')   
         
@@ -79,7 +79,7 @@ def breedbytype(get_breed):
 def user_posts():
     form = Post_form()
     posts = db.engine.execute("SELECT post.id, media.path, pet.name, post.description FROM media, pet, post WHERE media.pet_id = post.pet_id AND post.pet_id = pet.id AND post.status = True AND  post.user_id =" + str(current_user.id))
-    
+    db.session.commit()
     return render_template("user_posts.html", user=current_user, form=form, posts=posts)
 
 
@@ -88,11 +88,21 @@ def delete_post():
     post = json.loads(request.data)
     postId = post['postId']
     post = Post.query.get(postId)
+    petId = post.pet_id
+    pet = Pet.query.get(petId)
+    media = Media.query.filter_by(pet_id = int(petId)).first()
     if post:        
         if current_user.id == int(post.user_id):
             db.session.delete(post)
+            db.session.delete(pet)
+            db.session.delete(media)
             db.session.commit()
-            flash(" Post Deleted ", category='Success')            
+            flash(" Post Deleted ", category='Success')        
    
         
-    return jsonify({})    
+    return jsonify({})
+
+@views.route('/pet-info', methods=['GET', 'POST'])
+def pet_info():
+
+    return render_template("pet_info.html", user=current_user)

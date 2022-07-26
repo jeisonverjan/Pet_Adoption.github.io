@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% block title %} Pet information {% endblock %}
+{% block Content %} 
+<section>
+    <h2>Adoption Request:</h2>
+    <br>
+    <br>
+    <form method="post" action="#" enctype="multipart/form-data">
+        <div class="row gtr-uniform">
+            <div class="col-6 col-12-xsmall">
+                <label for="type">Pet Type</label>
+                <input type="text" name="type" id="type" placeholder="Type" />
+                <label for="name">Pet Name</label>
+                <input type="text" name="name" id="name" value="Motticas" disabled />
+            </div>
+            <div class="col-6 col-12-xsmall">
+                <h2>Pet Photo</h2>               
+            </div>
+            <div class="col-6 col-12-xsmall">
+                <label for="breed">Pet Breed</label>
+                <input type="text" name="breed" id="breed" placeholder="Type" />
+                <label for="age">Pet age</label>
+                <input type="text" name="age" id="age" placeholder="Age" />                
+            </div>
+            <div class="col-6 col-12-xsmall">
+                <label for="breed">Pet Sex</label>
+                <input type="text" name="sex" id="sex" placeholder="Type" />
+                <label for="descr">Pet description</label>
+                <input type="text" name="descr" id="descr" placeholder="Age" />                
+            </div>
+        </div>
+    </form>
+</section>
+
+{% endblock%}
