@@ -19,6 +19,17 @@ function deletePost(postId) {
       method: "POST",
       body: JSON.stringify({ postId: postId }),
     }).then((_res) => {
-      window.location.href = "/home";
+      window.location.href = "/home/posts";
     });
   }
+
+
+  /*
+  function adoption_request(postId) {
+    fetch("/pet-info", {
+      method: "POST",
+      body: JSON.stringify({ postId: postId }),
+    }).then((_res) => {
+      window.location.href = "/show_pet_info";
+    });
+  } */

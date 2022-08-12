@@ -24,12 +24,14 @@ def create_app():
     from .auth import auth
     from .sign_up import sign_up
     from .index import indexs
+    from .adoption_request import adoption
     from .models import Country, State, City, User_profile, Pet_type, Breed, Pet, Post, User
     
     app.register_blueprint(views, url_prefix='/')
     app.register_blueprint(auth, url_prefix='/')
     app.register_blueprint(sign_up, url_prefix='/')
     app.register_blueprint(indexs, url_prefix='/')
+    app.register_blueprint(adoption, url_prefix='/')
     
     create_database(app)
 

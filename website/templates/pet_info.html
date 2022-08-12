@@ -8,25 +8,44 @@
     <form method="post" action="#" enctype="multipart/form-data">
         <div class="row gtr-uniform">
             <div class="col-6 col-12-xsmall">
-                <label for="type">Pet Type</label>
-                <input type="text" name="type" id="type" placeholder="Type" />
-                <label for="name">Pet Name</label>
-                <input type="text" name="name" id="name" value="Motticas" disabled />
+                <label for="pet_type">Type</label>
+                <input type="text" name="pet_type" id="pet_type" placeholder="Type" disabled />
+                <label for="pet_name">Name</label>
+                <input type="text" name="pet_name" id="pet_name" placeholder="Pet Name" disabled />
+                <label for="pet_age">Age</label>
+                <input type="text" name="pet_age" id="pet_age" placeholder="Pet Age" disabled />
             </div>
             <div class="col-6 col-12-xsmall">
-                <h2>Pet Photo</h2>               
+                <label for="pet_breed">Breed</label>
+                <input type="text" name="pet_breed" id="pet_breed" placeholder="Pet Breed" disabled />
+                <label for="pet_sex">Sex</label>
+                <input type="text" name="pet_sex" id="pet_sex" placeholder="Pet Sex" disabled />  
+                <label for="pet_city">City</label>
+                <input type="text" name="pet_city" id="pet_city" placeholder="Pet City" disabled/> 
+                  
+            </div>
+        </div>
+    </form>
+    <form method="post" action="#" enctype="multipart/form-data">
+        <div class="row gtr-uniform">
+            <div class="col-6 col-12-xsmall">
+                <label for="username">Enter your name:</label>
+                {{form.name(ide="username")}}
+                <label for="useremail">Enter your email:</label>
+                {{form.email(id="useremail")}}
+                <label for="description">Additional information:</label>
+                {{form.description(id="description")}}
             </div>
             <div class="col-6 col-12-xsmall">
-                <label for="breed">Pet Breed</label>
-                <input type="text" name="breed" id="breed" placeholder="Type" />
-                <label for="age">Pet age</label>
-                <input type="text" name="age" id="age" placeholder="Age" />                
+                <label for="userlastname">Enter your last name:</label>
+                {{form.last_name(id="userlastname")}}
+                <label for="userphone">Enter your phone number:</label>
+                {{form.email(id="userphone")}}
             </div>
-            <div class="col-6 col-12-xsmall">
-                <label for="breed">Pet Sex</label>
-                <input type="text" name="sex" id="sex" placeholder="Type" />
-                <label for="descr">Pet description</label>
-                <input type="text" name="descr" id="descr" placeholder="Age" />                
+            <div class="col-12">
+                <ul class="actions">
+                    <li>{{form.send(class="primary")}}</li>
+                </ul>
             </div>
         </div>
     </form>

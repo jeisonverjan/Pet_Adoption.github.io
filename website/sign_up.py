@@ -1,4 +1,3 @@
-from email.policy import default
 from flask import Blueprint, render_template, request, jsonify, flash, redirect, url_for
 from . import db
 from .models import *
@@ -28,7 +27,6 @@ class Sign_up_form(FlaskForm):
 @sign_up.route('/sign_up', methods=['GET', 'POST'])
 def signup(): 
     form = Sign_up_form()
-    form.country.data = 'Select Country'
     user = User.query.filter_by(mail=form.email.data).first()
     form.country.choices = [(country.id, country.name) for country in Country.query.all()]
 

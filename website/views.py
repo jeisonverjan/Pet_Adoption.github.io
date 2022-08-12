@@ -101,8 +101,3 @@ def delete_post():
    
         
     return jsonify({})
-
-@views.route('/pet-info', methods=['GET', 'POST'])
-def pet_info():
-
-    return render_template("pet_info.html", user=current_user)
