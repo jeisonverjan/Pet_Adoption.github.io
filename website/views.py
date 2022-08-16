@@ -97,7 +97,11 @@ def delete_post():
             db.session.delete(pet)
             db.session.delete(media)
             db.session.commit()
-            flash(" Post Deleted ", category='Success')        
-   
+            flash(" Post Deleted ", category='Success')  
         
     return jsonify({})
+
+@views.route('/contact', methods=['GET', 'POST'])
+def contact():
+
+    return render_template("contact.html", user=current_user)
