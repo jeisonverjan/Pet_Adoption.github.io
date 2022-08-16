@@ -13,11 +13,9 @@ def create_app():
     app.config['SECRET_KEY'] = 'Pet_Adoption 0.1'
     app.config['SQLALCHEMY_DATABASE_URI'] = f'sqlite:///{DB_NAME}'
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-    app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
+    app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER    
     
-    
-    db.init_app(app)
-    
+    db.init_app(app)   
     
 
     from .views import views

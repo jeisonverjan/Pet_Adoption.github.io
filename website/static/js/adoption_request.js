@@ -4,6 +4,7 @@ pet_breed = document.getElementById('pet_breed');
 pet_city = document.getElementById('pet_city');
 pet_age = document.getElementById('pet_age');
 pet_sex = document.getElementById('pet_sex');
+post_id = document.getElementById('post_id');
 
 function adoption_request(postId){
   
@@ -28,6 +29,7 @@ fetch("/pet_info", {
       pet_city.value = pet.city_name
       pet_age.value = pet.pet_age
       pet_sex.value = pet.pet_sex
+      post_id.value = postId
     }
     
   })
